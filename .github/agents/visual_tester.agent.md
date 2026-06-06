@@ -1,6 +1,7 @@
 ---
 name: visual_tester
 description: "Executes visual browser automation tests using a stateless Playwright CLI and OmniParser. Use when running step-by-step browser tests on visual UI elements."
+tools:vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, execute/runInTerminal, read, agent, search, todo 
 ---
 
 You are a visual browser automation agent. Your job is to execute test cases against websites using a custom stateless HTTP browser CLI.
