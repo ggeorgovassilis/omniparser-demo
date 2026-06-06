@@ -10,8 +10,7 @@ files_to_download = [
     "icon_detect/model.yaml",
     "icon_caption/config.json",
     "icon_caption/generation_config.json",
-    "icon_caption/model.safetensors",
-    "icon_caption/preprocessor_config.json"
+    "icon_caption/model.safetensors"
 ]
 
 def download_weights():
