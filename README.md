@@ -25,7 +25,7 @@ You do not need to install Python or ML libraries on your host machine. Everythi
    Run the following command to spin up a temporary Docker container that fetches the required OmniParser models (YOLO and Florence-2) from Hugging Face. The weights will be saved to a local `weights/` directory mapped as a volume.
    ```bash
    docker compose build
-   docker compose run --rm omniparser python download_weights.py
+   docker compose run --rm omniparser python src/download_weights.py
    ```
 
 ## Running the Service

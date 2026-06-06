@@ -1,8 +1,10 @@
 services:
   omniparser:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    command: python main.py
+    command: python src/main.py
