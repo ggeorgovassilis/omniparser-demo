@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Models and weights
+weights/
+
+# Secrets and temp
+.env
+.DS_Store

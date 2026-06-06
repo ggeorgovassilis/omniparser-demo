@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+huggingface_hub
+torch
+torchvision
+transformers
+ultralytics
+supervision
+Pillow
+numpy
+thefuzz
+python-Levenshtein
