@@ -60,5 +60,19 @@ You do not need to install Python or ML libraries on your host machine. Everythi
    If you want to get the unfiltered list of **all** detected UI elements on the screen, just omit the prompt:
    ```bash
    curl -X POST "http://localhost:8000/parse" \
-        -F "image=@test.png"
+        -F "image=@test-screens/test.png"
    ```
+
+## Tools
+
+### Drawing Bounding Boxes
+
+You can generate a transparent image overlay containing red bounding boxes to easily visualize the results returned by the API. The `src/draw_bboxes.py` tool reads a JSON file containing the UI elements and outputs a tightly-fitted transparent `.png` with the drawn rectangles.
+
+To run the script against an existing `result.json` (output of the curl call)   file inside `test-screens/`, mount the directory into a temporary container:
+
+```bash
+docker compose run --rm -v $(pwd)/test-screens:/test-screens omniparser python src/draw_bboxes.py /test-screens/result.json
+```
+
+(By default, this will generate a file at `test-screens/bboxes_overlay.png`)
