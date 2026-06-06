@@ -9,3 +9,6 @@ weights/
 # Secrets and temp
 .env
 .DS_Store
+
+test-screens/test2.png
+test-screens/test3.png
