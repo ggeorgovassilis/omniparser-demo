@@ -56,9 +56,9 @@ You do not need to install Python or ML libraries on your host machine. Everythi
         -F "prompt=search box" \
         -F "image=@test.png"
    ```
-   Or to find the search button:
+
+   If you want to get the unfiltered list of **all** detected UI elements on the screen, just omit the prompt:
    ```bash
    curl -X POST "http://localhost:8000/parse" \
-        -F "prompt=search button" \
         -F "image=@test.png"
    ```

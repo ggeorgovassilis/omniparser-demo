@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+from typing import Optional
 import io
 from PIL import Image
 
@@ -20,12 +21,13 @@ async def health_check():
 
 @app.post("/parse")
 async def parse_ui(
-    prompt: str = Form(...),
-    image: UploadFile = File(...)
+    image: UploadFile = File(...),
+    prompt: Optional[str] = Form(None)
 ):
     """
-    Provide an image screen and a prompt like "find the submit button".
-    Returns matching UI elements with bounding boxes.
+    Provide an image screen and an optional prompt like "find the submit button".
+    If prompt is provided, returns matching UI elements.
+    If prompt is omitted, returns all detected UI elements.
     """
     try:
         # Read uploaded image into memory
@@ -34,7 +36,10 @@ async def parse_ui(
         
         # Run inference
         parser = get_parser()
-        matches = parser.find_elements(pil_image, prompt)
+        if prompt:
+            matches = parser.find_elements(pil_image, prompt)
+        else:
+            matches = parser.parse_screen(pil_image)
         
         return JSONResponse(content={"matches": matches})
         
