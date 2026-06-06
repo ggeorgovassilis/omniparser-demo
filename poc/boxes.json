@@ -1,0 +1,550 @@
+{
+  "matches": [
+    {
+      "id": 0,
+      "label": "An input jack for an audio file called Anupdyed Sivto.",
+      "bbox": [
+        456,
+        218,
+        635,
+        263
+      ],
+      "center": [
+        545.5,
+        240.5
+      ]
+    },
+    {
+      "id": 1,
+      "label": "An input jack for an audio file.",
+      "bbox": [
+        257,
+        218,
+        443,
+        263
+      ],
+      "center": [
+        350.0,
+        240.5
+      ]
+    },
+    {
+      "id": 2,
+      "label": "An input or output option.",
+      "bbox": [
+        648,
+        218,
+        841,
+        263
+      ],
+      "center": [
+        744.5,
+        240.5
+      ]
+    },
+    {
+      "id": 3,
+      "label": "A blurry arrow pointing downward.",
+      "bbox": [
+        1225,
+        387,
+        1268,
+        429
+      ],
+      "center": [
+        1246.5,
+        408.0
+      ]
+    },
+    {
+      "id": 4,
+      "label": "A blurry arrow pointing downward.",
+      "bbox": [
+        1181,
+        387,
+        1221,
+        428
+      ],
+      "center": [
+        1201.0,
+        407.5
+      ]
+    },
+    {
+      "id": 5,
+      "label": "A square button with two small rectangles.",
+      "bbox": [
+        924,
+        154,
+        960,
+        187
+      ],
+      "center": [
+        942.0,
+        170.5
+      ]
+    },
+    {
+      "id": 6,
+      "label": "A website or website icon with the nameInfo.",
+      "bbox": [
+        1095,
+        387,
+        1177,
+        429
+      ],
+      "center": [
+        1136.0,
+        408.0
+      ]
+    },
+    {
+      "id": 7,
+      "label": "A check mark indicating a positive or negative action.",
+      "bbox": [
+        30,
+        387,
+        73,
+        429
+      ],
+      "center": [
+        51.5,
+        408.0
+      ]
+    },
+    {
+      "id": 8,
+      "label": "A magnifying glass or search function.",
+      "bbox": [
+        967,
+        151,
+        1010,
+        193
+      ],
+      "center": [
+        988.5,
+        172.0
+      ]
+    },
+    {
+      "id": 9,
+      "label": "A video editing program or video editing tool.",
+      "bbox": [
+        176,
+        294,
+        1131,
+        562
+      ],
+      "center": [
+        653.5,
+        428.0
+      ]
+    },
+    {
+      "id": 10,
+      "label": "Microsoft Bing.",
+      "bbox": [
+        13,
+        0,
+        198,
+        67
+      ],
+      "center": [
+        105.5,
+        33.5
+      ]
+    },
+    {
+      "id": 11,
+      "label": "English is the first word for English.",
+      "bbox": [
+        909,
+        0,
+        972,
+        70
+      ],
+      "center": [
+        940.5,
+        35.0
+      ]
+    },
+    {
+      "id": 12,
+      "label": "Rewards or a notification.",
+      "bbox": [
+        1088,
+        0,
+        1201,
+        75
+      ],
+      "center": [
+        1144.5,
+        37.5
+      ]
+    },
+    {
+      "id": 13,
+      "label": "Bivto spelled out in white letters.",
+      "bbox": [
+        309,
+        0,
+        387,
+        73
+      ],
+      "center": [
+        348.0,
+        36.5
+      ]
+    },
+    {
+      "id": 14,
+      "label": "A tree with the word \"EIKOVES\" typed out.",
+      "bbox": [
+        225,
+        0,
+        313,
+        76
+      ],
+      "center": [
+        269.0,
+        38.0
+      ]
+    },
+    {
+      "id": 15,
+      "label": "A search engine or search function.",
+      "bbox": [
+        970,
+        0,
+        1077,
+        68
+      ],
+      "center": [
+        1023.5,
+        34.0
+      ]
+    },
+    {
+      "id": 16,
+      "label": "a horizontal bar of some sort.",
+      "bbox": [
+        1208,
+        11,
+        1251,
+        58
+      ],
+      "center": [
+        1229.5,
+        34.5
+      ]
+    },
+    {
+      "id": 17,
+      "label": "unanswerable",
+      "bbox": [
+        1223,
+        640,
+        1254,
+        669
+      ],
+      "center": [
+        1238.5,
+        654.5
+      ]
+    },
+    {
+      "id": 18,
+      "label": "The word \"Etoneth\" is visible in a green, leafy area.",
+      "bbox": [
+        455,
+        0,
+        547,
+        75
+      ],
+      "center": [
+        501.0,
+        37.5
+      ]
+    },
+    {
+      "id": 19,
+      "label": "A green grassy area with a yellow border.",
+      "bbox": [
+        247,
+        143,
+        924,
+        198
+      ],
+      "center": [
+        585.5,
+        170.5
+      ]
+    },
+    {
+      "id": 20,
+      "label": "A computer screen or computer keyboard with the word 'Supreme' typed out.",
+      "bbox": [
+        381,
+        0,
+        459,
+        74
+      ],
+      "center": [
+        420.0,
+        37.0
+      ]
+    },
+    {
+      "id": 21,
+      "label": "To Kia Ev1 Spyetai Yelutto",
+      "bbox": [
+        29,
+        435,
+        219,
+        485
+      ],
+      "center": [
+        124.0,
+        460.0
+      ]
+    },
+    {
+      "id": 22,
+      "label": "A graph showing a percentage of 50,866,78.",
+      "bbox": [
+        968,
+        629,
+        1263,
+        720
+      ],
+      "center": [
+        1115.5,
+        674.5
+      ]
+    },
+    {
+      "id": 23,
+      "label": "A video file called Middleton Kava.",
+      "bbox": [
+        995,
+        435,
+        1190,
+        485
+      ],
+      "center": [
+        1092.5,
+        460.0
+      ]
+    },
+    {
+      "id": 24,
+      "label": "A rectangle shape with a slight angle to the right.",
+      "bbox": [
+        770,
+        542,
+        795,
+        568
+      ],
+      "center": [
+        782.5,
+        555.0
+      ]
+    },
+    {
+      "id": 25,
+      "label": "The name of a computer keyboard or mouse pad.",
+      "bbox": [
+        805,
+        435,
+        995,
+        486
+      ],
+      "center": [
+        900.0,
+        460.5
+      ]
+    },
+    {
+      "id": 26,
+      "label": "Audiomode.",
+      "bbox": [
+        1201,
+        438,
+        1267,
+        458
+      ],
+      "center": [
+        1234.0,
+        448.0
+      ]
+    },
+    {
+      "id": 27,
+      "label": "A car parked in a grassy field.",
+      "bbox": [
+        30,
+        482,
+        221,
+        577
+      ],
+      "center": [
+        125.5,
+        529.5
+      ]
+    },
+    {
+      "id": 28,
+      "label": "A simple arrow or pointer pointer.",
+      "bbox": [
+        659,
+        229,
+        688,
+        257
+      ],
+      "center": [
+        673.5,
+        243.0
+      ]
+    },
+    {
+      "id": 29,
+      "label": "Navakotoudoc, also known as attavatos",
+      "bbox": [
+        611,
+        435,
+        801,
+        486
+      ],
+      "center": [
+        706.0,
+        460.5
+      ]
+    },
+    {
+      "id": 30,
+      "label": "A computer mouse icon.",
+      "bbox": [
+        574,
+        539,
+        605,
+        573
+      ],
+      "center": [
+        589.5,
+        556.0
+      ]
+    },
+    {
+      "id": 31,
+      "label": "A woman with long brown hair laughing.",
+      "bbox": [
+        995,
+        482,
+        1194,
+        575
+      ],
+      "center": [
+        1094.5,
+        528.5
+      ]
+    },
+    {
+      "id": 32,
+      "label": "A note or sticky note.",
+      "bbox": [
+        1192,
+        483,
+        1271,
+        574
+      ],
+      "center": [
+        1231.5,
+        528.5
+      ]
+    },
+    {
+      "id": 33,
+      "label": "A split screen or collage of images.",
+      "bbox": [
+        25,
+        508,
+        941,
+        720
+      ],
+      "center": [
+        483.0,
+        614.0
+      ]
+    },
+    {
+      "id": 34,
+      "label": "A text box or message box with the sentence \"Skaleplow\".",
+      "bbox": [
+        222,
+        435,
+        412,
+        485
+      ],
+      "center": [
+        317.0,
+        460.0
+      ]
+    },
+    {
+      "id": 35,
+      "label": "Eyster type text.",
+      "bbox": [
+        30,
+        601,
+        89,
+        620
+      ],
+      "center": [
+        59.5,
+        610.5
+      ]
+    },
+    {
+      "id": 36,
+      "label": "A rectangle shape with a slight angle to the right.",
+      "bbox": [
+        382,
+        542,
+        408,
+        568
+      ],
+      "center": [
+        395.0,
+        555.0
+      ]
+    },
+    {
+      "id": 37,
+      "label": "The word \"Movie\" in a computer language.",
+      "bbox": [
+        1197,
+        460,
+        1271,
+        477
+      ],
+      "center": [
+        1234.0,
+        468.5
+      ]
+    },
+    {
+      "id": 38,
+      "label": "Red cord running from a switch.",
+      "bbox": [
+        1116,
+        678,
+        1163,
+        720
+      ],
+      "center": [
+        1139.5,
+        699.0
+      ]
+    }
+  ]
+}

@@ -76,3 +76,36 @@ docker compose run --rm -v $(pwd)/test-screens:/test-screens omniparser python s
 ```
 
 (By default, this will generate a file at `test-screens/bboxes_overlay.png`)
+
+## PoC: Visual Browser Automation
+
+This project includes a Proof of Concept (PoC) demonstrating how a browser can be operated strictly via visual recognition without relying on its DOM. The architecture for this PoC utilizes a 2-container setup:
+
+1. **`omniparser`**: The existing component that acts as the "eyes", converting screenshots into spatial bounding boxes and descriptive text labels.
+2. **`browser-env`**: A new container based on `mcr.microsoft.com/playwright:python` which bundles Chromium and an interactive Python shell (`poc/browser_shell.py`). This acts as the "hands". 
+
+The agent running the script only interacts via raw coordinates (e.g., clicking X, Y) and keyboard inputs, ensuring it does not "cheat" by using HTML DOM elements.
+
+### Running the PoC
+
+1. **Start the containers**
+   ```bash
+   docker compose up -d
+   ```
+   *This starts both the existing `omniparser` API and the new `browser-env` headless container.*
+
+2. **Launch the interactive shell**
+   Exec into the `browser-env` container to run the interactive loop:
+   ```bash
+   docker compose exec -it browser-env python /app/poc/browser_shell.py
+   ```
+
+3. **Operate the browser**
+   Inside the `browser>` prompt, try running the following testing scenario sequence manually:
+   - `goto https://google.com`
+   - `observe` (This captures a screenshot, talks to OmniParser, and saves UI elements to `poc/boxes.json`)
+   - Open `poc/boxes.json` locally. Find the exact matching coordinates for the Search Input field (e.g. its center point).
+   - Use `click <x> <y>` to focus the input box.
+   - Use `type AI visual browser automation` to write text.
+   - Use `observe` again to see the updated screen and find the "Google Search" button coordinates.
+   - Use `click <x> <y>` to run the search.

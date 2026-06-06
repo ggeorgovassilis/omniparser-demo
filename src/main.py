@@ -1,19 +1,36 @@
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional
+from contextlib import asynccontextmanager
 import io
+import time
+import logging
 from PIL import Image
 
 # Import the parser
 from parser import get_parser
 
-app = FastAPI(title="OmniParser UI Element Detector")
+# Setup basic logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("omniparser")
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     # Pre-load the models in memory when the server starts
     get_parser()
+    yield
+
+app = FastAPI(title="OmniParser UI Element Detector", lifespan=lifespan)
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+    logger.info(f"Started {request.method} {request.url.path}")
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    logger.info(f"Finished {request.method} {request.url.path} - {response.status_code} - {process_time:.2f}s")
+    return response
 
 @app.get("/health")
 async def health_check():
@@ -30,6 +47,7 @@ async def parse_ui(
     If prompt is omitted, returns all detected UI elements.
     """
     try:
+        logger.info(f"Parsing image: {image.filename} | Prompt: {prompt}")
         # Read uploaded image into memory
         contents = await image.read()
         pil_image = Image.open(io.BytesIO(contents)).convert("RGB")
