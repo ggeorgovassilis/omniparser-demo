@@ -10,10 +10,8 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt .
 
-# Install dependencies, forcing the CPU version of PyTorch to save space
-RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# Install dependencies, locking versions using the updated requirements file
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir "transformers<4.48.0" "timm" "einops"
 
 # Keep container running for dev by default, or run fastapi later
 CMD ["tail", "-f", "/dev/null"]
