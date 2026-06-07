@@ -8,7 +8,16 @@ services:
     ports:
       - "8000:8000"
     command: python src/main.py
-
+    environment:
+      # ── Thread limits for PyTorch/BLAS ──
+      # Prevent each small matrix operation from spawning one thread per CPU core,
+      # which causes extreme contention and cache thrashing on multi-core machines.
+      # Capped at 4 to match torch.set_num_threads(4).
+      - OMP_NUM_THREADS=4        # OpenMP threading (used by many BLAS backends)
+      - MKL_NUM_THREADS=4        # Intel Math Kernel Library
+      - OPENBLAS_NUM_THREADS=4   # OpenBLAS linear algebra
+      - VECLIB_MAXIMUM_THREADS=4 # Apple Accelerate (harmless on Linux)
+      - NUMEXPR_NUM_THREADS=4    # NumExpr parallel evaluation
   browser-env:
     build:
       context: .
@@ -20,4 +29,4 @@ services:
     working_dir: /app
     tty: true
     stdin_open: true
-    command: tail -f /dev/null
+    command: python /app/poc/serve_browser.py

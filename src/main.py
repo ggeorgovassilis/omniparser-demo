@@ -13,7 +13,7 @@ from PIL import Image
 from parser import get_parser
 
 # Setup basic logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 logger = logging.getLogger("omniparser")
 
 # Track whether a parse task is currently running

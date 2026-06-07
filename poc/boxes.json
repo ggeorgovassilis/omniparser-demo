@@ -2,478 +2,114 @@
   "matches": [
     {
       "id": 0,
-      "label": "Ferry Companies name or option.",
+      "label": "A red square with the words \"Zum Ger\u00e4t Hinzuf\" in",
       "bbox": [
-        715,
-        30,
-        852,
-        112
+        139,
+        579,
+        306,
+        636
       ],
       "center": [
-        783.5,
-        71.0
+        222.5,
+        607.5
       ]
     },
     {
       "id": 1,
-      "label": "Home button in a blank page.",
+      "label": "A blank space for notes or words.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
       "bbox": [
-        529,
-        30,
-        601,
-        112
+        19,
+        248,
+        306,
+        369
       ],
       "center": [
-        565.0,
-        71.0
+        162.5,
+        308.5
       ]
     },
     {
       "id": 2,
-      "label": "A text box for ferry booking.",
+      "label": "A blurry symbol or icon indicating an x or x.<pad><pad><pad><pad><pad><pad><pad>",
       "bbox": [
-        598,
-        30,
-        717,
-        112
+        269,
+        15,
+        306,
+        51
       ],
       "center": [
-        657.5,
-        71.0
+        287.5,
+        33.0
       ]
     },
     {
       "id": 3,
-      "label": "Destinations or destinations.",
+      "label": "A thin wire or string bracelet.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
       "bbox": [
-        851,
-        30,
-        962,
-        112
+        236,
+        494,
+        273,
+        542
       ],
       "center": [
-        906.5,
-        71.0
+        254.5,
+        518.0
       ]
     },
     {
       "id": 4,
-      "label": "Search.",
+      "label": "A red heart shaped icon with a white line coming out of it.<pad><pad><pad><pad>",
       "bbox": [
-        332,
-        544,
-        440,
-        601
+        18,
+        83,
+        58,
+        130
       ],
       "center": [
-        386.0,
-        572.5
+        38.0,
+        106.5
       ]
     },
     {
       "id": 5,
-      "label": "Travel Services written in black text.",
+      "label": "A black symbol or icon.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
       "bbox": [
-        960,
-        30,
-        1083,
-        112
+        38,
+        506,
+        54,
+        525
       ],
       "center": [
-        1021.5,
-        71.0
+        46.0,
+        515.5
       ]
     },
     {
       "id": 6,
-      "label": "A graph or graph bar.",
+      "label": "A square button with a black outline.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
       "bbox": [
-        60,
-        412,
-        379,
-        448
+        154,
+        203,
+        177,
+        225
       ],
       "center": [
-        219.5,
-        430.0
+        165.5,
+        214.0
       ]
     },
     {
       "id": 7,
-      "label": "A close-up of a moving path.",
+      "label": "A simple symbol or symbol.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
       "bbox": [
-        1216,
-        667,
-        1261,
-        711
+        55,
+        505,
+        72,
+        526
       ],
       "center": [
-        1238.5,
-        689.0
-      ]
-    },
-    {
-      "id": 8,
-      "label": "A graph or graph of some sort.",
-      "bbox": [
-        56,
-        352,
-        378,
-        390
-      ],
-      "center": [
-        217.0,
-        371.0
-      ]
-    },
-    {
-      "id": 9,
-      "label": "Round Trip",
-      "bbox": [
-        180,
-        269,
-        282,
-        298
-      ],
-      "center": [
-        231.0,
-        283.5
-      ]
-    },
-    {
-      "id": 10,
-      "label": "English or English dictionary.",
-      "bbox": [
-        1091,
-        48,
-        1196,
-        94
-      ],
-      "center": [
-        1143.5,
-        71.0
-      ]
-    },
-    {
-      "id": 11,
-      "label": "A graph or graph bar.",
-      "bbox": [
-        401,
-        411,
-        720,
-        449
-      ],
-      "center": [
-        560.5,
-        430.0
-      ]
-    },
-    {
-      "id": 12,
-      "label": "A simple simple icon.",
-      "bbox": [
-        64,
-        472,
-        102,
-        506
-      ],
-      "center": [
-        83.0,
-        489.0
-      ]
-    },
-    {
-      "id": 13,
-      "label": "A text editing tool called Chios.",
-      "bbox": [
-        433,
-        349,
-        719,
-        393
-      ],
-      "center": [
-        576.0,
-        371.0
-      ]
-    },
-    {
-      "id": 14,
-      "label": "A car icon.",
-      "bbox": [
-        404,
-        472,
-        441,
-        506
-      ],
-      "center": [
-        422.5,
-        489.0
-      ]
-    },
-    {
-      "id": 15,
-      "label": "A simple line or symbol.",
-      "bbox": [
-        1211,
-        510,
-        1241,
-        560
-      ],
-      "center": [
-        1226.0,
-        535.0
-      ]
-    },
-    {
-      "id": 16,
-      "label": "Multi Trip",
-      "bbox": [
-        293,
-        268,
-        385,
-        298
-      ],
-      "center": [
-        339.0,
-        283.0
-      ]
-    },
-    {
-      "id": 17,
-      "label": "A map of Europe with the United Kingdom in the background.",
-      "bbox": [
-        739,
-        183,
-        1246,
-        651
-      ],
-      "center": [
-        992.5,
-        417.0
-      ]
-    },
-    {
-      "id": 18,
-      "label": "A red cord connected to a computer screen.",
-      "bbox": [
-        441,
-        471,
-        486,
-        507
-      ],
-      "center": [
-        463.5,
-        489.0
-      ]
-    },
-    {
-      "id": 19,
-      "label": "A simple line or curve.",
-      "bbox": [
-        1203,
-        269,
-        1242,
-        314
-      ],
-      "center": [
-        1222.5,
-        291.5
-      ]
-    },
-    {
-      "id": 20,
-      "label": "A simple marker or indicator.",
-      "bbox": [
-        102,
-        471,
-        151,
-        506
-      ],
-      "center": [
-        126.5,
-        488.5
-      ]
-    },
-    {
-      "id": 21,
-      "label": "A red square with a white dot in the middle.",
-      "bbox": [
-        404,
-        353,
-        437,
-        389
-      ],
-      "center": [
-        420.5,
-        371.0
-      ]
-    },
-    {
-      "id": 22,
-      "label": "A logo or emblem that indicates Ferries.",
-      "bbox": [
-        101,
-        52,
-        289,
-        89
-      ],
-      "center": [
-        195.0,
-        70.5
-      ]
-    },
-    {
-      "id": 23,
-      "label": "One Way",
-      "bbox": [
-        70,
-        268,
-        172,
-        299
-      ],
-      "center": [
-        121.0,
-        283.5
-      ]
-    },
-    {
-      "id": 24,
-      "label": "A plus sign or symbol.",
-      "bbox": [
-        488,
-        476,
-        508,
-        506
-      ],
-      "center": [
-        498.0,
-        491.0
-      ]
-    },
-    {
-      "id": 25,
-      "label": "A number tag or tag line with the number 876.",
-      "bbox": [
-        959,
-        5,
-        1070,
-        24
-      ],
-      "center": [
-        1014.5,
-        14.5
-      ]
-    },
-    {
-      "id": 26,
-      "label": "A text editing tool or logo.",
-      "bbox": [
-        1080,
-        4,
-        1186,
-        24
-      ],
-      "center": [
-        1133.0,
-        14.0
-      ]
-    },
-    {
-      "id": 27,
-      "label": "A map or route map with the location of \"Gia\" visible.",
-      "bbox": [
-        1188,
-        302,
-        1242,
-        396
-      ],
-      "center": [
-        1215.0,
-        349.0
-      ]
-    },
-    {
-      "id": 28,
-      "label": "Home or driveway.",
-      "bbox": [
-        1031,
-        140,
-        1067,
-        156
-      ],
-      "center": [
-        1049.0,
-        148.0
-      ]
-    },
-    {
-      "id": 29,
-      "label": "A simple math problem.",
-      "bbox": [
-        1157,
-        265,
-        1206,
-        317
-      ],
-      "center": [
-        1181.5,
-        291.0
-      ]
-    },
-    {
-      "id": 30,
-      "label": "A map or map of a country with the word \"Strompton\" visible.",
-      "bbox": [
-        916,
-        344,
-        976,
-        429
-      ],
-      "center": [
-        946.0,
-        386.5
-      ]
-    },
-    {
-      "id": 31,
-      "label": "A plus button in a red rectangle.",
-      "bbox": [
-        144,
-        474,
-        166,
-        507
-      ],
-      "center": [
-        155.0,
-        490.5
-      ]
-    },
-    {
-      "id": 32,
-      "label": "A simple line or symbol.",
-      "bbox": [
-        1192,
-        411,
-        1242,
-        468
-      ],
-      "center": [
-        1217.0,
-        439.5
-      ]
-    },
-    {
-      "id": 33,
-      "label": "A text editing tool called \"Fern Booking\".",
-      "bbox": [
-        1104,
-        139,
-        1186,
-        156
-      ],
-      "center": [
-        1145.0,
-        147.5
+        63.5,
+        515.5
       ]
     }
   ]
