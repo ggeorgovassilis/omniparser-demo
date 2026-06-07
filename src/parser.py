@@ -1,18 +1,20 @@
 import os
 import time
 
-# ── Thread limits are set via docker-compose environment variables ──
+# ── PyTorch thread limits (configurable via docker-compose env vars) ──
+# TORCH_INTRAOP_THREADS controls parallelism within individual PyTorch ops.
+# TORCH_INTEROP_THREADS controls parallelism across independent PyTorch ops.
 import torch
-torch.set_num_threads(4)
-torch.set_num_interop_threads(2)
+torch.set_num_threads(int(os.environ.get("TORCH_INTRAOP_THREADS", "4")))
+torch.set_num_interop_threads(int(os.environ.get("TORCH_INTEROP_THREADS", "2")))
 
 import warnings
 import logging
+import re
 from PIL import Image
 from ultralytics import YOLO
 from transformers import AutoProcessor, AutoModelForCausalLM
 from thefuzz import fuzz
-
 
 logger = logging.getLogger("omniparser")
 
@@ -101,12 +103,12 @@ class OmniParser:
 
         # Florence batch inference in sub-batches to limit peak memory.
         # A full batch of 40+ varied-size crops creates huge padded tensors.
-        # Processing 8 at a time keeps memory low without losing much throughput.
+        # FLORENCE_BATCH_SIZE controls sub-batch size (1 = no batching, safest).
         task_prompt = "<CAPTION>"
-        BATCH_SIZE = 1
+        FLORENCE_BATCH_SIZE = int(os.environ.get("FLORENCE_BATCH_SIZE", "1"))
 
-        for batch_start in range(0, len(crops), BATCH_SIZE):
-            batch_end = min(batch_start + BATCH_SIZE, len(crops))
+        for batch_start in range(0, len(crops), FLORENCE_BATCH_SIZE):
+            batch_end = min(batch_start + FLORENCE_BATCH_SIZE, len(crops))
             batch_crops = crops[batch_start:batch_end]
             batch_sizes = crop_sizes[batch_start:batch_end]
             batch_info = bbox_info[batch_start:batch_end]
@@ -124,7 +126,7 @@ class OmniParser:
                 generated_ids = self.caption_model.generate(
                     input_ids=inputs["input_ids"],
                     pixel_values=inputs["pixel_values"],
-                    max_new_tokens=10,
+                    max_new_tokens=int(os.environ.get("FLORENCE_MAX_TOKENS_CAPTION", "10")),
                     num_beams=1,
                     early_stopping=False
                 )
@@ -167,7 +169,10 @@ class OmniParser:
 
     def ocr_region(self, image: Image.Image, bbox: list):
         """
-        Extract text from a specific region of the screen using Florence-2 OCR.
+        Extract text from a region using Florence-2 OCR with tiling for
+        large images. Florence-2 resizes to 768x768 internally, so crops
+        larger than that lose detail. Tiling splits them into overlapping
+        chunks that each get full-resolution OCR, then stitches results.
 
         Args:
             image: Full screenshot PIL Image
@@ -182,10 +187,57 @@ class OmniParser:
         crop = image.crop((x1, y1, x2, y2))
         w, h = crop.width, crop.height
 
+        # ── Tiling: split crops larger than Florence's 768px input into
+        #     overlapping tiles so each tile preserves full text detail.
+        TILE_SIZE = int(os.environ.get("OCR_TILE_SIZE", "768"))
+        TILE_OVERLAP = int(os.environ.get("OCR_TILE_OVERLAP", "64"))
+        MAX_TOKENS = int(os.environ.get("FLORENCE_MAX_TOKENS_OCR", "200"))
+
+        if w <= TILE_SIZE and h <= TILE_SIZE:
+            # Small region — single forward pass
+            raw_text = self._ocr_single_tile(crop, MAX_TOKENS)
+        else:
+            # Large region — tile it
+            x_starts = list(range(0, max(1, w - TILE_OVERLAP), TILE_SIZE - TILE_OVERLAP))
+            y_starts = list(range(0, max(1, h - TILE_OVERLAP), TILE_SIZE - TILE_OVERLAP))
+            # Ensure right/bottom edge is covered
+            if x_starts and x_starts[-1] + TILE_SIZE < w:
+                x_starts.append(max(0, w - TILE_SIZE))
+            if y_starts and y_starts[-1] + TILE_SIZE < h:
+                y_starts.append(max(0, h - TILE_SIZE))
+            if not x_starts:
+                x_starts = [0]
+            if not y_starts:
+                y_starts = [0]
+
+            total_tiles = len(x_starts) * len(y_starts)
+            logger.info("OCR tiling: %dx%d → %d tiles (%dx%d each, overlap=%d)",
+                        w, h, total_tiles, TILE_SIZE, TILE_SIZE, TILE_OVERLAP)
+
+            tile_texts = []
+            for y_start in y_starts:
+                for x_start in x_starts:
+                    x_end = min(x_start + TILE_SIZE, w)
+                    y_end = min(y_start + TILE_SIZE, h)
+                    tile = crop.crop((x_start, y_start, x_end, y_end))
+                    tile_text = self._ocr_single_tile(tile, MAX_TOKENS)
+                    if tile_text:
+                        tile_texts.append(tile_text)
+
+            raw_text = "\n".join(tile_texts)
+
+        # ── Post-process: fix run-together words ──
+        text = self._postprocess_ocr(raw_text)
+        logger.info("OCR result: '%s'", text)
+        return text
+
+    def _ocr_single_tile(self, tile: Image.Image, max_tokens: int) -> str:
+        """Run a single Florence-2 OCR forward pass on a tile."""
+        w, h = tile.width, tile.height
         task_prompt = "<OCR>"
         inputs = self.processor(
             text=[task_prompt],
-            images=[crop],
+            images=[tile],
             return_tensors="pt"
         ).to(self.device)
 
@@ -196,7 +248,7 @@ class OmniParser:
             generated_ids = self.caption_model.generate(
                 input_ids=inputs["input_ids"],
                 pixel_values=inputs["pixel_values"],
-                max_new_tokens=100,
+                max_new_tokens=max_tokens,
                 num_beams=1,
                 early_stopping=False
             )
@@ -210,9 +262,36 @@ class OmniParser:
             task=task_prompt,
             image_size=(w, h)
         )
-        text = parsed[task_prompt].strip()
-        logger.info("OCR result: '%s'", text)
-        return text
+        return parsed[task_prompt].strip()
+
+    @staticmethod
+    def _postprocess_ocr(raw: str) -> str:
+        """Clean Florence-2 OCR output with language-agnostic rules.
+
+        Florence-2 occasionally omits spaces between words. The rules below
+        fix common boundary artifacts without assuming English (so German
+        compounds like "Vertrag" stay intact)."""
+        if not raw or not raw.strip():
+            return ""
+
+        # 1. lowercase→UPPERCASE boundary: "nThis" → "n This"
+        raw = re.sub(r'([a-z])([A-Z])', r'\1 \2', raw)
+        # 2. UPPERCASE_WORD→Capitalized boundary: "NEEDINGPermission" → "NEEDING Permission"
+        #    Only when 3+ consecutive caps meet a capital+lowercase (avoids splitting
+        #    German compound nouns that happen to have internal caps).
+        raw = re.sub(r'([A-Z]{3,})([A-Z][a-z])', r'\1 \2', raw)
+        # 3. lowercase→digit & digit→lowercase boundaries
+        raw = re.sub(r'([a-z])(\d)', r'\1 \2', raw)
+        raw = re.sub(r'(\d)([a-z])', r'\1 \2', raw)
+        # 4. Sentence boundary: period/comma/exclamation followed by capital
+        raw = re.sub(r'([.!?,;:])([A-Z])', r'\1 \2', raw)
+        # 5. Collapse multiple spaces and normalize newlines
+        raw = re.sub(r'[ \t]+', ' ', raw)
+        raw = re.sub(r'\n{3,}', '\n\n', raw)
+        # 5. Trim each line
+        lines = [line.strip() for line in raw.split('\n') if line.strip()]
+
+        return '\n'.join(lines)
 
     def find_elements(self, image: Image.Image, prompt: str, threshold: int = 50):
         """

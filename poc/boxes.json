@@ -2,72 +2,30 @@
   "matches": [
     {
       "id": 0,
-      "label": "A writing tool or marker.",
+      "label": "A text editing tool or logo.",
       "bbox": [
-        12,
-        93,
-        83,
-        117
+        63,
+        268,
+        144,
+        287
       ],
       "center": [
-        47.5,
-        105.0
+        103.5,
+        277.5
       ]
     },
     {
       "id": 1,
-      "label": "A symbol or symbol for a hand.",
+      "label": "Example Domain",
       "bbox": [
-        14,
-        2,
-        66,
-        56
+        61,
+        43,
+        311,
+        139
       ],
       "center": [
-        40.0,
-        29.0
-      ]
-    },
-    {
-      "id": 2,
-      "label": "Herstalination Sw.Karte",
-      "bbox": [
-        116,
-        479,
-        288,
-        518
-      ],
-      "center": [
-        202.0,
-        498.5
-      ]
-    },
-    {
-      "id": 3,
-      "label": "A circle or circle shape.",
-      "bbox": [
-        234,
-        246,
-        255,
-        271
-      ],
-      "center": [
-        244.5,
-        258.5
-      ]
-    },
-    {
-      "id": 4,
-      "label": "Warehouse or web browser.",
-      "bbox": [
-        96,
-        3,
-        216,
-        52
-      ],
-      "center": [
-        156.0,
-        27.5
+        186.0,
+        91.0
       ]
     }
   ]

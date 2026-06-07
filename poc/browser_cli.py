@@ -125,7 +125,17 @@ def main():
                         except json.JSONDecodeError:
                             print(f"Error parsing OCR response. Raw output:\n{result.stdout[:200]}")
                     else:
-                        print(f"Error communicating with OmniParser. Return code: {result.returncode}")
+                        # Include HTTP status and response body for debugging
+                        stderr_info = f" | stderr: {result.stderr[:200]}" if result.stderr else ""
+                        print(f"Error communicating with OmniParser. HTTP {result.returncode}{stderr_info}")
+                        if result.stdout:
+                            try:
+                                err_data = json.loads(result.stdout)
+                                detail = err_data.get("detail", "")
+                                if detail:
+                                    print(f"Server detail: {detail}")
+                            except json.JSONDecodeError:
+                                print(f"Response: {result.stdout[:300]}")
             else:
                 print(f"Unknown command: {cmd}")
         except Exception as e:

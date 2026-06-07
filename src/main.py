@@ -108,22 +108,31 @@ async def parse_ui(
 @app.post("/ocr")
 async def ocr_region(
     image: UploadFile = File(...),
-    bbox: str = Form(...)
+    bbox: Optional[str] = Form(None)
 ):
     """
     Extract text from a specific region of the screen using Florence-2 OCR.
+    If bbox is omitted, OCR the full image.
 
     Args:
         image: Uploaded screenshot
-        bbox: Comma-separated region coordinates "x1,y1,x2,y2"
+        bbox: Optional comma-separated region coordinates "x1,y1,x2,y2"
     """
     try:
-        coords = [int(x.strip()) for x in bbox.split(",")]
-        if len(coords) != 4:
-            return JSONResponse(
-                status_code=400,
-                content={"error": "bbox must be 4 comma-separated integers: x1,y1,x2,y2"}
-            )
+        contents = await image.read()
+        pil_image = Image.open(io.BytesIO(contents)).convert("RGB")
+
+        if bbox is None:
+            # Full-screen OCR
+            coords = [0, 0, pil_image.width, pil_image.height]
+            logger.info("OCR full screen: %dx%d", pil_image.width, pil_image.height)
+        else:
+            coords = [int(x.strip()) for x in bbox.split(",")]
+            if len(coords) != 4:
+                return JSONResponse(
+                    status_code=400,
+                    content={"error": "bbox must be 4 comma-separated integers: x1,y1,x2,y2"}
+                )
     except ValueError:
         return JSONResponse(
             status_code=400,
@@ -131,9 +140,6 @@ async def ocr_region(
         )
 
     try:
-        contents = await image.read()
-        pil_image = Image.open(io.BytesIO(contents)).convert("RGB")
-
         parser = get_parser()
         text = await asyncio.to_thread(parser.ocr_region, pil_image, coords)
 

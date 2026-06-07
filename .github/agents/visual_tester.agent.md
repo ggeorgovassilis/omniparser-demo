@@ -39,15 +39,16 @@ Always run these by prefixing them with `docker compose exec browser-env python 
 
 - `tabs` / `tab <index>`: Lists all tabs or switches focus to the specified numeric tab index.
 
-- `ocr <x1,y1,x2,y2>`: Runs optical character recognition on the specified rectangular region of the **last screenshot taken by `observe`**. Returns the raw text extracted from that region. Use this to read product prices, article text, form labels, or any other textual content inside a defined bounding box. The coordinates use the same format as `observe` outputs: `[xmin, ymin, xmax, ymax]`. Example:
-  `docker compose exec browser-env python /app/poc/browser_cli.py ocr 100,50,400,80`
+- `ocr [x1,y1,x2,y2]`: Runs optical character recognition on the **last screenshot taken by `observe`**. If a bounding-box region is provided (`x1,y1,x2,y2`), only that region is OCR'd; if omitted, the entire screen is used. Returns the raw text extracted. Use this to read product prices, article text, form labels, or any other textual content. The coordinates use the same format as `observe` outputs: `[xmin, ymin, xmax, ymax]`. Examples:
+  `docker compose exec browser-env python /app/poc/browser_cli.py ocr 100,50,400,80` (specific region)
+  `docker compose exec browser-env python /app/poc/browser_cli.py ocr` (full screen)
   
 
 ### Execution Strategy
 1. Determine the target URL from the user's request.
 2. Use `goto` to reach the target URL.
 3. Call `observe` (with a no timeout!) to get the list of actionable UI elements on the screen.
-4. Optionally call `ocr <x1,y1,x2,y2>` on one or more regions from the `observe` output to extract raw text (prices, labels, article content) from those areas.
+4. Optionally call `ocr [x1,y1,x2,y2]` on one or more regions from the `observe` output to extract raw text (prices, labels, article content) from those areas. Omit the region to OCR the full screen.
 5. Read the printed center coordinates for the element matching your goal (e.g., search bar or button).
 6. Chain `click <x> <y>` and/or `type <text>` to step through the UI flow.
 7. Issue another `observe` when a page changes or pop-ups appear.
