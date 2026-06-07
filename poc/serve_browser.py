@@ -5,13 +5,21 @@ from playwright.sync_api import sync_playwright
 MOBILE_MODE = os.environ.get("MOBILE_MODE", "").lower() in ("1", "true", "yes")
 
 def main():
+    # Lower process priority — Chrome yields CPU to the parser on contention
+    try:
+        os.nice(15)
+    except AttributeError:
+        pass  # os.nice only exists on Unix
+
     print("Starting Playwright CDP server...")
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
             args=[
                 "--remote-debugging-port=9222",
-                "--remote-debugging-address=0.0.0.0"
+                "--remote-debugging-address=0.0.0.0",
+                "--renderer-process-limit=1",    # Keep child process count down
+                "--disable-background-networking",  # No sync/telemetry when idle
             ]
         )
 

@@ -2,114 +2,72 @@
   "matches": [
     {
       "id": 0,
-      "label": "A red square with the words \"Zum Ger\u00e4t Hinzuf\" in",
+      "label": "A writing tool or marker.",
       "bbox": [
-        139,
-        579,
-        306,
-        636
+        12,
+        93,
+        83,
+        117
       ],
       "center": [
-        222.5,
-        607.5
+        47.5,
+        105.0
       ]
     },
     {
       "id": 1,
-      "label": "A blank space for notes or words.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
+      "label": "A symbol or symbol for a hand.",
       "bbox": [
-        19,
-        248,
-        306,
-        369
+        14,
+        2,
+        66,
+        56
       ],
       "center": [
-        162.5,
-        308.5
+        40.0,
+        29.0
       ]
     },
     {
       "id": 2,
-      "label": "A blurry symbol or icon indicating an x or x.<pad><pad><pad><pad><pad><pad><pad>",
+      "label": "Herstalination Sw.Karte",
       "bbox": [
-        269,
-        15,
-        306,
-        51
+        116,
+        479,
+        288,
+        518
       ],
       "center": [
-        287.5,
-        33.0
+        202.0,
+        498.5
       ]
     },
     {
       "id": 3,
-      "label": "A thin wire or string bracelet.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
+      "label": "A circle or circle shape.",
       "bbox": [
-        236,
-        494,
-        273,
-        542
+        234,
+        246,
+        255,
+        271
       ],
       "center": [
-        254.5,
-        518.0
+        244.5,
+        258.5
       ]
     },
     {
       "id": 4,
-      "label": "A red heart shaped icon with a white line coming out of it.<pad><pad><pad><pad>",
+      "label": "Warehouse or web browser.",
       "bbox": [
-        18,
-        83,
-        58,
-        130
+        96,
+        3,
+        216,
+        52
       ],
       "center": [
-        38.0,
-        106.5
-      ]
-    },
-    {
-      "id": 5,
-      "label": "A black symbol or icon.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
-      "bbox": [
-        38,
-        506,
-        54,
-        525
-      ],
-      "center": [
-        46.0,
-        515.5
-      ]
-    },
-    {
-      "id": 6,
-      "label": "A square button with a black outline.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
-      "bbox": [
-        154,
-        203,
-        177,
-        225
-      ],
-      "center": [
-        165.5,
-        214.0
-      ]
-    },
-    {
-      "id": 7,
-      "label": "A simple symbol or symbol.<pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>",
-      "bbox": [
-        55,
-        505,
-        72,
-        526
-      ],
-      "center": [
-        63.5,
-        515.5
+        156.0,
+        27.5
       ]
     }
   ]

@@ -93,6 +93,39 @@ def main():
                     print(f"Switched to tab {idx}: {pages[idx].title() or pages[idx].url}")
                 else:
                     print(f"Invalid index. Specify between 0 and {len(pages)-1}")
+
+            elif cmd == "ocr":
+                screenshot_path = "/app/poc/screenshot.png"
+
+                import os as _os
+                if not _os.path.exists(screenshot_path):
+                    print("No screenshot found. Run 'observe' first to capture the page.")
+                else:
+                    curl_cmd = [
+                        "curl", "-s", "-X", "POST", "http://omniparser:8000/ocr",
+                        "-H", "Expect:",
+                        "-F", f"image=@{screenshot_path}"
+                    ]
+                    if len(args) >= 1:
+                        bbox = args[0]
+                        curl_cmd.extend(["-F", f"bbox={bbox}"])
+                        print(f"Running OCR on region {bbox} (using last observe screenshot)...")
+                    else:
+                        print("Running OCR on full screen (using last observe screenshot)...")
+
+                    result = subprocess.run(curl_cmd, capture_output=True, text=True)
+
+                    if result.returncode == 0:
+                        try:
+                            data = json.loads(result.stdout)
+                            if "error" in data:
+                                print(f"OCR error: {data['error']}")
+                            else:
+                                print(f"OCR text: {data.get('text', '')}")
+                        except json.JSONDecodeError:
+                            print(f"Error parsing OCR response. Raw output:\n{result.stdout[:200]}")
+                    else:
+                        print(f"Error communicating with OmniParser. Return code: {result.returncode}")
             else:
                 print(f"Unknown command: {cmd}")
         except Exception as e:

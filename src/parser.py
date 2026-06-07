@@ -21,19 +21,19 @@ warnings.filterwarnings("ignore", message=".*`num_beams` is set to 1.*`early_sto
 
 class OmniParser:
     def __init__(self, weights_dir="weights"):
-        # Autodetect the best available hardware
-        if torch.cuda.is_available():
+        # Select hardware via OMNIPARSER_DEVICE env var (cpu | cuda | mps)
+        device_name = os.environ.get("OMNIPARSER_DEVICE", "cpu").lower()
+        if device_name == "cuda":
             self.device = "cuda"
             self.dtype = torch.float16
-            logger.info("Using NVIDIA CUDA acceleration.")
-        elif torch.backends.mps.is_available():
+        elif device_name == "mps":
             self.device = "mps"
             self.dtype = torch.float16
-            logger.info("Using Apple Silicon MPS acceleration.")
         else:
             self.device = "cpu"
             self.dtype = torch.float32
-            logger.info("No GPU found. Falling back to CPU.")
+        logger.info("Inference device: %s (dtype: %s)", self.device.upper(), str(self.dtype).split('.')[1])
+
 
         # Florence-2 remote code compat fix for newer transformers versions
         from transformers.configuration_utils import PretrainedConfig
@@ -62,7 +62,15 @@ class OmniParser:
             torch_dtype=self.dtype
         ).to(self.device)
 
+        # Apply int8 dynamic quantization on CPU for 2-4x faster inference
+        if self.device == "cpu":
+            logger.info("Applying dynamic int8 quantization for CPU inference...")
+            self.caption_model = torch.quantization.quantize_dynamic(
+                self.caption_model, {torch.nn.Linear}, dtype=torch.qint8
+            )
+
         logger.info("Models loaded successfully.")
+
 
     def parse_screen(self, image: Image.Image):
         # 1. Detect bounding boxes with YOLO
@@ -91,50 +99,64 @@ class OmniParser:
             crop_sizes.append((cropped_img.width, cropped_img.height))
             bbox_info.append((i, xmin, ymin, xmax, ymax))
 
-        # Batch all crops into a single Florence forward pass
+        # Florence batch inference in sub-batches to limit peak memory.
+        # A full batch of 40+ varied-size crops creates huge padded tensors.
+        # Processing 8 at a time keeps memory low without losing much throughput.
         task_prompt = "<CAPTION>"
-        inputs = self.processor(
-            text=[task_prompt] * len(crops),
-            images=crops,
-            return_tensors="pt"
-        ).to(self.device)
+        BATCH_SIZE = 1
 
-        # Ensure pixel_values match the model dtype on GPU
-        if self.device != "cpu":
-            inputs["pixel_values"] = inputs["pixel_values"].to(self.dtype)
+        for batch_start in range(0, len(crops), BATCH_SIZE):
+            batch_end = min(batch_start + BATCH_SIZE, len(crops))
+            batch_crops = crops[batch_start:batch_end]
+            batch_sizes = crop_sizes[batch_start:batch_end]
+            batch_info = bbox_info[batch_start:batch_end]
 
-        generated_ids = self.caption_model.generate(
-            input_ids=inputs["input_ids"],
-            pixel_values=inputs["pixel_values"],
-            max_new_tokens=20,
-            num_beams=1,
-            early_stopping=False
-        )
+            inputs = self.processor(
+                text=[task_prompt] * len(batch_crops),
+                images=batch_crops,
+                return_tensors="pt"
+            ).to(self.device)
 
-        all_generated_text = self.processor.batch_decode(
-            generated_ids, skip_special_tokens=False
-        )
+            if self.device != "cpu":
+                inputs["pixel_values"] = inputs["pixel_values"].to(self.dtype)
 
-        for idx, generated_text in enumerate(all_generated_text):
-            i, xmin, ymin, xmax, ymax = bbox_info[idx]
-            w, h = crop_sizes[idx]
+            with torch.no_grad():
+                generated_ids = self.caption_model.generate(
+                    input_ids=inputs["input_ids"],
+                    pixel_values=inputs["pixel_values"],
+                    max_new_tokens=10,
+                    num_beams=1,
+                    early_stopping=False
+                )
 
-            parsed_text = self.processor.post_process_generation(
-                generated_text,
-                task=task_prompt,
-                image_size=(w, h)
+            batch_text = self.processor.batch_decode(
+                generated_ids, skip_special_tokens=False
             )
-            label = parsed_text[task_prompt].strip()
 
-            cx = (xmin + xmax) / 2.0
-            cy = (ymin + ymax) / 2.0
+            for idx, generated_text in enumerate(batch_text):
+                i, xmin, ymin, xmax, ymax = batch_info[idx]
+                w, h = batch_sizes[idx]
 
-            elements.append({
-                "id": i,
-                "label": label,
-                "bbox": [xmin, ymin, xmax, ymax],
-                "center": [cx, cy]
-            })
+                parsed_text = self.processor.post_process_generation(
+                    generated_text,
+                    task=task_prompt,
+                    image_size=(w, h)
+                )
+                label = parsed_text[task_prompt].strip()
+
+                cx = (xmin + xmax) / 2.0
+                cy = (ymin + ymax) / 2.0
+
+                elements.append({
+                    "id": i,
+                    "label": label,
+                    "bbox": [xmin, ymin, xmax, ymax],
+                    "center": [cx, cy]
+                })
+
+            # Free intermediate tensors from this sub-batch
+            del inputs, generated_ids
+
 
         florence_elapsed = time.time() - florence_start
         logger.info("Florence captioning finished in %.2fs (%d elements, avg %.2fs per crop)",
@@ -142,6 +164,55 @@ class OmniParser:
                      florence_elapsed / len(elements) if elements else 0)
 
         return elements
+
+    def ocr_region(self, image: Image.Image, bbox: list):
+        """
+        Extract text from a specific region of the screen using Florence-2 OCR.
+
+        Args:
+            image: Full screenshot PIL Image
+            bbox: [x1, y1, x2, y2] pixel coordinates of the region
+
+        Returns:
+            str: The extracted text from the region
+        """
+        x1, y1, x2, y2 = map(int, bbox)
+        logger.info("OCR region: [%d, %d, %d, %d]", x1, y1, x2, y2)
+
+        crop = image.crop((x1, y1, x2, y2))
+        w, h = crop.width, crop.height
+
+        task_prompt = "<OCR>"
+        inputs = self.processor(
+            text=[task_prompt],
+            images=[crop],
+            return_tensors="pt"
+        ).to(self.device)
+
+        if self.device != "cpu":
+            inputs["pixel_values"] = inputs["pixel_values"].to(self.dtype)
+
+        with torch.no_grad():
+            generated_ids = self.caption_model.generate(
+                input_ids=inputs["input_ids"],
+                pixel_values=inputs["pixel_values"],
+                max_new_tokens=100,
+                num_beams=1,
+                early_stopping=False
+            )
+
+        generated_text = self.processor.batch_decode(
+            generated_ids, skip_special_tokens=False
+        )[0]
+
+        parsed = self.processor.post_process_generation(
+            generated_text,
+            task=task_prompt,
+            image_size=(w, h)
+        )
+        text = parsed[task_prompt].strip()
+        logger.info("OCR result: '%s'", text)
+        return text
 
     def find_elements(self, image: Image.Image, prompt: str, threshold: int = 50):
         """
