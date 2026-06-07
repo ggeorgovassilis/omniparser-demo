@@ -13,20 +13,20 @@ services:
       # Prevent each small matrix operation from spawning one thread per CPU core,
       # which causes extreme contention and cache thrashing on multi-core machines.
       # Capped at 4 to match TORCH_INTRAOP_THREADS below.
-      - OMP_NUM_THREADS=4        # OpenMP threading (used by many BLAS backends)
-      - MKL_NUM_THREADS=4        # Intel Math Kernel Library
-      - OPENBLAS_NUM_THREADS=4   # OpenBLAS linear algebra
+      - OMP_NUM_THREADS=6        # OpenMP threading (used by many BLAS backends)
+      - MKL_NUM_THREADS=6        # Intel Math Kernel Library
+      - OPENBLAS_NUM_THREADS=6   # OpenBLAS linear algebra
       # ── PyTorch thread limits (read by parser.py) ──
-      - TORCH_INTRAOP_THREADS=4   # Parallelism within individual PyTorch ops
-      - TORCH_INTEROP_THREADS=2   # Parallelism across independent PyTorch ops
+      - TORCH_INTRAOP_THREADS=6   # Parallelism within individual PyTorch ops
+      - TORCH_INTEROP_THREADS=6   # Parallelism across independent PyTorch ops
       # VECLIB_MAXIMUM_THREADS removed — Apple Accelerate only, inert on Linux
-      - NUMEXPR_NUM_THREADS=4    # NumExpr parallel evaluation
+      - NUMEXPR_NUM_THREADS=6    # NumExpr parallel evaluation
       # ── Inference device (cpu | cuda | mps) ──
       - OMNIPARSER_DEVICE=cpu
       # ── Florence inference tuning ──
-      - FLORENCE_BATCH_SIZE=1           # Sub-batch size for captioning (1=no batching; 4-8 for faster)
+      - FLORENCE_BATCH_SIZE=2           # Sub-batch size for captioning (1=no batching; 4-8 for faster)
       - FLORENCE_MAX_TOKENS_CAPTION=10  # Max tokens for element captions
-      - FLORENCE_MAX_TOKENS_OCR=200     # Max tokens for OCR (tiled regions need more)
+      - FLORENCE_MAX_TOKENS_OCR=300     # Max tokens for OCR (tiled regions need more)
       # ── OCR tiling parameters (splits large regions into Florence-native chunks) ──
       - OCR_TILE_SIZE=768              # Tile dimension in pixels (matches Florence input size)
       - OCR_TILE_OVERLAP=64            # Pixel overlap between adjacent tiles to avoid boundary cuts
