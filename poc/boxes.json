@@ -2,548 +2,478 @@
   "matches": [
     {
       "id": 0,
-      "label": "An input jack for an audio file called Anupdyed Sivto.",
+      "label": "Ferry Companies name or option.",
       "bbox": [
-        456,
-        218,
-        635,
-        263
+        715,
+        30,
+        852,
+        112
       ],
       "center": [
-        545.5,
-        240.5
+        783.5,
+        71.0
       ]
     },
     {
       "id": 1,
-      "label": "An input jack for an audio file.",
+      "label": "Home button in a blank page.",
       "bbox": [
-        257,
-        218,
-        443,
-        263
+        529,
+        30,
+        601,
+        112
       ],
       "center": [
-        350.0,
-        240.5
+        565.0,
+        71.0
       ]
     },
     {
       "id": 2,
-      "label": "An input or output option.",
+      "label": "A text box for ferry booking.",
       "bbox": [
-        648,
-        218,
-        841,
-        263
+        598,
+        30,
+        717,
+        112
       ],
       "center": [
-        744.5,
-        240.5
+        657.5,
+        71.0
       ]
     },
     {
       "id": 3,
-      "label": "A blurry arrow pointing downward.",
+      "label": "Destinations or destinations.",
       "bbox": [
-        1225,
-        387,
-        1268,
-        429
+        851,
+        30,
+        962,
+        112
       ],
       "center": [
-        1246.5,
-        408.0
+        906.5,
+        71.0
       ]
     },
     {
       "id": 4,
-      "label": "A blurry arrow pointing downward.",
+      "label": "Search.",
       "bbox": [
-        1181,
-        387,
-        1221,
-        428
+        332,
+        544,
+        440,
+        601
       ],
       "center": [
-        1201.0,
-        407.5
+        386.0,
+        572.5
       ]
     },
     {
       "id": 5,
-      "label": "A square button with two small rectangles.",
+      "label": "Travel Services written in black text.",
       "bbox": [
-        924,
-        154,
         960,
-        187
+        30,
+        1083,
+        112
       ],
       "center": [
-        942.0,
-        170.5
+        1021.5,
+        71.0
       ]
     },
     {
       "id": 6,
-      "label": "A website or website icon with the nameInfo.",
+      "label": "A graph or graph bar.",
       "bbox": [
-        1095,
-        387,
-        1177,
-        429
+        60,
+        412,
+        379,
+        448
       ],
       "center": [
-        1136.0,
-        408.0
+        219.5,
+        430.0
       ]
     },
     {
       "id": 7,
-      "label": "A check mark indicating a positive or negative action.",
+      "label": "A close-up of a moving path.",
       "bbox": [
-        30,
-        387,
-        73,
-        429
+        1216,
+        667,
+        1261,
+        711
       ],
       "center": [
-        51.5,
-        408.0
+        1238.5,
+        689.0
       ]
     },
     {
       "id": 8,
-      "label": "A magnifying glass or search function.",
+      "label": "A graph or graph of some sort.",
       "bbox": [
-        967,
-        151,
-        1010,
-        193
+        56,
+        352,
+        378,
+        390
       ],
       "center": [
-        988.5,
-        172.0
+        217.0,
+        371.0
       ]
     },
     {
       "id": 9,
-      "label": "A video editing program or video editing tool.",
+      "label": "Round Trip",
       "bbox": [
-        176,
-        294,
-        1131,
-        562
+        180,
+        269,
+        282,
+        298
       ],
       "center": [
-        653.5,
-        428.0
+        231.0,
+        283.5
       ]
     },
     {
       "id": 10,
-      "label": "Microsoft Bing.",
+      "label": "English or English dictionary.",
       "bbox": [
-        13,
-        0,
-        198,
-        67
+        1091,
+        48,
+        1196,
+        94
       ],
       "center": [
-        105.5,
-        33.5
+        1143.5,
+        71.0
       ]
     },
     {
       "id": 11,
-      "label": "English is the first word for English.",
+      "label": "A graph or graph bar.",
       "bbox": [
-        909,
-        0,
-        972,
-        70
+        401,
+        411,
+        720,
+        449
       ],
       "center": [
-        940.5,
-        35.0
+        560.5,
+        430.0
       ]
     },
     {
       "id": 12,
-      "label": "Rewards or a notification.",
+      "label": "A simple simple icon.",
       "bbox": [
-        1088,
-        0,
-        1201,
-        75
+        64,
+        472,
+        102,
+        506
       ],
       "center": [
-        1144.5,
-        37.5
+        83.0,
+        489.0
       ]
     },
     {
       "id": 13,
-      "label": "Bivto spelled out in white letters.",
+      "label": "A text editing tool called Chios.",
       "bbox": [
-        309,
-        0,
-        387,
-        73
+        433,
+        349,
+        719,
+        393
       ],
       "center": [
-        348.0,
-        36.5
+        576.0,
+        371.0
       ]
     },
     {
       "id": 14,
-      "label": "A tree with the word \"EIKOVES\" typed out.",
+      "label": "A car icon.",
       "bbox": [
-        225,
-        0,
-        313,
-        76
+        404,
+        472,
+        441,
+        506
       ],
       "center": [
-        269.0,
-        38.0
+        422.5,
+        489.0
       ]
     },
     {
       "id": 15,
-      "label": "A search engine or search function.",
+      "label": "A simple line or symbol.",
       "bbox": [
-        970,
-        0,
-        1077,
-        68
+        1211,
+        510,
+        1241,
+        560
       ],
       "center": [
-        1023.5,
-        34.0
+        1226.0,
+        535.0
       ]
     },
     {
       "id": 16,
-      "label": "a horizontal bar of some sort.",
+      "label": "Multi Trip",
       "bbox": [
-        1208,
-        11,
-        1251,
-        58
+        293,
+        268,
+        385,
+        298
       ],
       "center": [
-        1229.5,
-        34.5
+        339.0,
+        283.0
       ]
     },
     {
       "id": 17,
-      "label": "unanswerable",
+      "label": "A map of Europe with the United Kingdom in the background.",
       "bbox": [
-        1223,
-        640,
-        1254,
-        669
+        739,
+        183,
+        1246,
+        651
       ],
       "center": [
-        1238.5,
-        654.5
+        992.5,
+        417.0
       ]
     },
     {
       "id": 18,
-      "label": "The word \"Etoneth\" is visible in a green, leafy area.",
+      "label": "A red cord connected to a computer screen.",
       "bbox": [
-        455,
-        0,
-        547,
-        75
+        441,
+        471,
+        486,
+        507
       ],
       "center": [
-        501.0,
-        37.5
+        463.5,
+        489.0
       ]
     },
     {
       "id": 19,
-      "label": "A green grassy area with a yellow border.",
+      "label": "A simple line or curve.",
       "bbox": [
-        247,
-        143,
-        924,
-        198
+        1203,
+        269,
+        1242,
+        314
       ],
       "center": [
-        585.5,
-        170.5
+        1222.5,
+        291.5
       ]
     },
     {
       "id": 20,
-      "label": "A computer screen or computer keyboard with the word 'Supreme' typed out.",
+      "label": "A simple marker or indicator.",
       "bbox": [
-        381,
-        0,
-        459,
-        74
+        102,
+        471,
+        151,
+        506
       ],
       "center": [
-        420.0,
-        37.0
+        126.5,
+        488.5
       ]
     },
     {
       "id": 21,
-      "label": "To Kia Ev1 Spyetai Yelutto",
+      "label": "A red square with a white dot in the middle.",
       "bbox": [
-        29,
-        435,
-        219,
-        485
+        404,
+        353,
+        437,
+        389
       ],
       "center": [
-        124.0,
-        460.0
+        420.5,
+        371.0
       ]
     },
     {
       "id": 22,
-      "label": "A graph showing a percentage of 50,866,78.",
+      "label": "A logo or emblem that indicates Ferries.",
       "bbox": [
-        968,
-        629,
-        1263,
-        720
+        101,
+        52,
+        289,
+        89
       ],
       "center": [
-        1115.5,
-        674.5
+        195.0,
+        70.5
       ]
     },
     {
       "id": 23,
-      "label": "A video file called Middleton Kava.",
+      "label": "One Way",
       "bbox": [
-        995,
-        435,
-        1190,
-        485
+        70,
+        268,
+        172,
+        299
       ],
       "center": [
-        1092.5,
-        460.0
+        121.0,
+        283.5
       ]
     },
     {
       "id": 24,
-      "label": "A rectangle shape with a slight angle to the right.",
+      "label": "A plus sign or symbol.",
       "bbox": [
-        770,
-        542,
-        795,
-        568
+        488,
+        476,
+        508,
+        506
       ],
       "center": [
-        782.5,
-        555.0
+        498.0,
+        491.0
       ]
     },
     {
       "id": 25,
-      "label": "The name of a computer keyboard or mouse pad.",
+      "label": "A number tag or tag line with the number 876.",
       "bbox": [
-        805,
-        435,
-        995,
-        486
+        959,
+        5,
+        1070,
+        24
       ],
       "center": [
-        900.0,
-        460.5
+        1014.5,
+        14.5
       ]
     },
     {
       "id": 26,
-      "label": "Audiomode.",
+      "label": "A text editing tool or logo.",
       "bbox": [
-        1201,
-        438,
-        1267,
-        458
+        1080,
+        4,
+        1186,
+        24
       ],
       "center": [
-        1234.0,
-        448.0
+        1133.0,
+        14.0
       ]
     },
     {
       "id": 27,
-      "label": "A car parked in a grassy field.",
+      "label": "A map or route map with the location of \"Gia\" visible.",
       "bbox": [
-        30,
-        482,
-        221,
-        577
+        1188,
+        302,
+        1242,
+        396
       ],
       "center": [
-        125.5,
-        529.5
+        1215.0,
+        349.0
       ]
     },
     {
       "id": 28,
-      "label": "A simple arrow or pointer pointer.",
+      "label": "Home or driveway.",
       "bbox": [
-        659,
-        229,
-        688,
-        257
+        1031,
+        140,
+        1067,
+        156
       ],
       "center": [
-        673.5,
-        243.0
+        1049.0,
+        148.0
       ]
     },
     {
       "id": 29,
-      "label": "Navakotoudoc, also known as attavatos",
+      "label": "A simple math problem.",
       "bbox": [
-        611,
-        435,
-        801,
-        486
+        1157,
+        265,
+        1206,
+        317
       ],
       "center": [
-        706.0,
-        460.5
+        1181.5,
+        291.0
       ]
     },
     {
       "id": 30,
-      "label": "A computer mouse icon.",
+      "label": "A map or map of a country with the word \"Strompton\" visible.",
       "bbox": [
-        574,
-        539,
-        605,
-        573
+        916,
+        344,
+        976,
+        429
       ],
       "center": [
-        589.5,
-        556.0
+        946.0,
+        386.5
       ]
     },
     {
       "id": 31,
-      "label": "A woman with long brown hair laughing.",
+      "label": "A plus button in a red rectangle.",
       "bbox": [
-        995,
-        482,
-        1194,
-        575
+        144,
+        474,
+        166,
+        507
       ],
       "center": [
-        1094.5,
-        528.5
+        155.0,
+        490.5
       ]
     },
     {
       "id": 32,
-      "label": "A note or sticky note.",
+      "label": "A simple line or symbol.",
       "bbox": [
         1192,
-        483,
-        1271,
-        574
+        411,
+        1242,
+        468
       ],
       "center": [
-        1231.5,
-        528.5
+        1217.0,
+        439.5
       ]
     },
     {
       "id": 33,
-      "label": "A split screen or collage of images.",
+      "label": "A text editing tool called \"Fern Booking\".",
       "bbox": [
-        25,
-        508,
-        941,
-        720
+        1104,
+        139,
+        1186,
+        156
       ],
       "center": [
-        483.0,
-        614.0
-      ]
-    },
-    {
-      "id": 34,
-      "label": "A text box or message box with the sentence \"Skaleplow\".",
-      "bbox": [
-        222,
-        435,
-        412,
-        485
-      ],
-      "center": [
-        317.0,
-        460.0
-      ]
-    },
-    {
-      "id": 35,
-      "label": "Eyster type text.",
-      "bbox": [
-        30,
-        601,
-        89,
-        620
-      ],
-      "center": [
-        59.5,
-        610.5
-      ]
-    },
-    {
-      "id": 36,
-      "label": "A rectangle shape with a slight angle to the right.",
-      "bbox": [
-        382,
-        542,
-        408,
-        568
-      ],
-      "center": [
-        395.0,
-        555.0
-      ]
-    },
-    {
-      "id": 37,
-      "label": "The word \"Movie\" in a computer language.",
-      "bbox": [
-        1197,
-        460,
-        1271,
-        477
-      ],
-      "center": [
-        1234.0,
-        468.5
-      ]
-    },
-    {
-      "id": 38,
-      "label": "Red cord running from a switch.",
-      "bbox": [
-        1116,
-        678,
-        1163,
-        720
-      ],
-      "center": [
-        1139.5,
-        699.0
+        1145.0,
+        147.5
       ]
     }
   ]

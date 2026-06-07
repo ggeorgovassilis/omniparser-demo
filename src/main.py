@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional
 from contextlib import asynccontextmanager
+import asyncio
 import io
 import time
 import logging
@@ -14,6 +15,9 @@ from parser import get_parser
 # Setup basic logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("omniparser")
+
+# Track whether a parse task is currently running
+_parser_busy = False
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -34,7 +38,7 @@ async def log_requests(request: Request, call_next):
 
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
+    return {"status": "busy" if _parser_busy else "idle"}
 
 @app.post("/parse")
 async def parse_ui(
@@ -46,7 +50,9 @@ async def parse_ui(
     If prompt is provided, returns matching UI elements.
     If prompt is omitted, returns all detected UI elements.
     """
+    global _parser_busy
     try:
+        _parser_busy = True
         logger.info(f"Parsing image: {image.filename} | Prompt: {prompt}")
         # Read uploaded image into memory
         contents = await image.read()
@@ -55,14 +61,16 @@ async def parse_ui(
         # Run inference
         parser = get_parser()
         if prompt:
-            matches = parser.find_elements(pil_image, prompt)
+            matches = await asyncio.to_thread(parser.find_elements, pil_image, prompt)
         else:
-            matches = parser.parse_screen(pil_image)
+            matches = await asyncio.to_thread(parser.parse_screen, pil_image)
         
         return JSONResponse(content={"matches": matches})
         
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+    finally:
+        _parser_busy = False
 
 if __name__ == "__main__":
     import uvicorn

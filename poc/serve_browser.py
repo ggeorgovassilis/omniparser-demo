@@ -1,5 +1,8 @@
+import os
 import time
 from playwright.sync_api import sync_playwright
+
+MOBILE_MODE = os.environ.get("MOBILE_MODE", "").lower() in ("1", "true", "yes")
 
 def main():
     print("Starting Playwright CDP server...")
@@ -11,11 +14,19 @@ def main():
                 "--remote-debugging-address=0.0.0.0"
             ]
         )
-        context = browser.new_context(viewport={'width': 1280, 'height': 720})
+
+        if MOBILE_MODE:
+            device = p.devices["Galaxy S9+"]
+            context = browser.new_context(**device)
+            print(f"Running in mobile mode ({device['viewport']})")
+        else:
+            context = browser.new_context(viewport={"width": 1280, "height": 2000})
+            print("Running in desktop mode (1280x2000)")
+
         page = context.new_page()
         page.goto("about:blank")
-        print("CDP server running on port 9222 with default context/page")
-        
+        print("CDP server running on port 9222")
+
         try:
             while True:
                 time.sleep(1)
