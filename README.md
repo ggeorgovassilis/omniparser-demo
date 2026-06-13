@@ -211,12 +211,14 @@ date -u '+%Y-%m-%d %H:%M:%S'
 
 Models were tested with `test-screens/test.png` on an Ubuntu laptop with 16 GB RAM and a Radeon GPU with 7 GB VRAM. 4 labelling tasks in parallel.
 
-* gemma3:4b: good labelling, ran in 3m26s
-* qwen3-vl:8b: good labelling, ran in 8m15s
-* qwen3.5:9b-q4_K_M: timeout
-* gemma4:12b-it-Q5_K_M: can't upload image
-* gemma4:e4b: good labelling, ran in 3m22s
-* gemma4:e2b-it-q4_K_M: ok, ran in 1m57s
-* glm-ocr:latest: timeout
-* qwen3-vl:2b-instruct-q4_K_M: ok, ran in 3m13s
-* qwen3-vl:4b-instruct-q4_K_M: good, ran in 3m11s 
+| Model | Labelling quality | Time |
+|---|---|---|
+| `gemma3:4b` | good | 3m26s |
+| `qwen3-vl:8b` | good | 8m15s |
+| `qwen3.5:9b-q4_K_M` | timeout | - |
+| `gemma4:e4b` | good | 3m22s |
+| `gemma4:e2b-it-q4_K_M` | ok | 1m57s |
+| `glm-ocr:latest` | timeout | - |
+| `qwen3-vl:2b-instruct-q4_K_M` | ok | 3m13s |
+| `qwen3-vl:4b-instruct-q4_K_M` | good | 3m11s |
+| `florence-2` | ok | 0m16.314s |

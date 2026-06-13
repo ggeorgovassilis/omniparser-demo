@@ -2,198 +2,170 @@
   "matches": [
     {
       "id": 0,
-      "label": "A red pencil eraser tool.<pad>",
+      "label": "Only red colored text overlaying a red",
       "bbox": [
-        14,
-        190,
-        305,
-        247
+        20,
+        536,
+        303,
+        586
       ],
       "center": [
-        159.5,
-        218.5
+        161.5,
+        561.0
       ]
     },
     {
       "id": 1,
-      "label": "A red square with the words Inden",
+      "label": "A red square with the word ACCEP",
       "bbox": [
-        12,
-        594,
-        305,
-        644
+        20,
+        480,
+        303,
+        530
       ],
       "center": [
-        158.5,
-        619.0
+        161.5,
+        505.0
       ]
     },
     {
       "id": 2,
-      "label": "A simple line or loop shape.",
+      "label": "A line or curve indicator.<pad><pad>",
       "bbox": [
-        132,
-        18,
-        161,
-        47
+        19,
+        591,
+        304,
+        642
       ],
       "center": [
-        146.5,
-        32.5
+        161.5,
+        616.5
       ]
     },
     {
       "id": 3,
-      "label": "A thin wire or cord.<pad>",
+      "label": "A symbol or symbol related to writing or",
       "bbox": [
-        85,
-        18,
-        114,
-        47
+        145,
+        266,
+        188,
+        289
       ],
       "center": [
-        99.5,
-        32.5
+        166.5,
+        277.5
       ]
     },
     {
       "id": 4,
-      "label": "A simple simple line or header.",
+      "label": "A blurry button or symbol.<pad>",
       "bbox": [
-        179,
-        18,
-        211,
-        49
+        278,
+        28,
+        312,
+        62
       ],
       "center": [
-        195.0,
-        33.5
+        295.0,
+        45.0
       ]
     },
     {
       "id": 5,
-      "label": "A text input or output indicator.",
+      "label": "Partner List or name tag.",
       "bbox": [
-        40,
-        438,
-        167,
-        459
+        196,
+        403,
+        284,
+        428
       ],
       "center": [
-        103.5,
-        448.5
+        240.0,
+        415.5
       ]
     },
     {
       "id": 6,
-      "label": "A red rectangle shape with a white rectangle",
+      "label": "The word print is written in black text",
       "bbox": [
-        6,
-        12,
-        58,
-        53
+        125,
+        403,
+        187,
+        454
       ],
       "center": [
-        32.0,
-        32.5
+        156.0,
+        428.5
       ]
     },
     {
       "id": 7,
-      "label": "A simple simple setup or setup function.",
+      "label": "A simple simple design or icon.<pad>",
       "bbox": [
-        229,
-        17,
-        259,
-        52
+        137,
+        109,
+        167,
+        138
       ],
       "center": [
-        244.0,
-        34.5
+        152.0,
+        123.5
       ]
     },
     {
       "id": 8,
-      "label": "A black bar or pointer.<pad>",
+      "label": "A simple magnet or magnetine function.",
       "bbox": [
-        281,
-        23,
-        301,
-        42
+        196,
+        428,
+        228,
+        452
       ],
       "center": [
-        291.0,
-        32.5
+        212.0,
+        440.0
       ]
     },
     {
       "id": 9,
-      "label": "A simple logitech mouse icon.",
+      "label": "A simple simple line or symbol.<pad>",
       "bbox": [
-        12,
-        433,
-        39,
-        468
+        232,
+        108,
+        264,
+        135
       ],
       "center": [
-        25.5,
-        450.5
+        248.0,
+        121.5
       ]
     },
     {
       "id": 10,
-      "label": "A symbol or symbol that is not discern",
+      "label": "The word \"Poli\" is written",
       "bbox": [
-        11,
-        77,
-        33,
-        98
+        25,
+        428,
+        72,
+        451
       ],
       "center": [
-        22.0,
-        87.5
+        48.5,
+        439.5
       ]
     },
     {
       "id": 11,
-      "label": "A text editing tool called Twick Al",
+      "label": "A simple font style or logo.<pad>",
       "bbox": [
-        93,
-        284,
-        250,
-        306
+        83,
+        58,
+        201,
+        82
       ],
       "center": [
-        171.5,
-        295.0
-      ]
-    },
-    {
-      "id": 12,
-      "label": "A blurry image of a single line.",
-      "bbox": [
-        41,
-        79,
-        56,
-        96
-      ],
-      "center": [
-        48.5,
-        87.5
-      ]
-    },
-    {
-      "id": 13,
-      "label": "A text editing tool or application called \"",
-      "bbox": [
-        217,
-        441,
-        302,
-        460
-      ],
-      "center": [
-        259.5,
-        450.5
+        142.0,
+        70.0
       ]
     }
   ]
