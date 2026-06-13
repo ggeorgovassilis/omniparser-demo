@@ -12,8 +12,9 @@ The project consists of four main components:
 
 1. **API Layer (FastAPI)**: An HTTP web server exposing a `POST /parse` endpoint. It accepts an image upload and a target prompt.
 2. **OmniParser Engine**: 
-   * **Detection**: Utilizes a YOLO model to find all interactable UI regions (bounding boxes) on the screen.
-   * **Captioning**: Uses Florence-2 to generate a functional textual label (e.g., "search bar", "submit button") for each detected region.
+   * **Detection**: Utilizes a YOLO model to find all interactable UI regions (areas of interest) on the screen.
+   * **Labelling**: Uses Florence-2 to generate a functional textual label (e.g., "search bar", "submit button") for each detected area.
+   * **OCR**: Extracts raw text from specific bounding box areas or the entire screen using optical character recognition.
 3. **Matcher**: A lightweight fuzzy string matching utility that compares the user's prompt against all generated labels and returns the best matches along with their coordinates.
 4. **Visual Tester Agent**: A VS Code custom agent (configured in `.github/agents/visual_tester.agent.md`) that drives the headless browser strictly through visual recognition — without touching the DOM. It captures screenshots, calls `/parse` to detect UI elements, clicks coordinates, and extracts text via OCR. A PreToolUse guard hook (`.github/hooks/browser-guard.sh`) enforces that the agent can only interact through `browser_cli.py`, preventing DOM-based shortcuts.
 
@@ -56,7 +57,7 @@ You do not need to install Python or ML libraries on your host machine. Everythi
 
    **Testing from the command line:**
    If you have a `test.png` image in your project directory (like a Google homepage screenshot), you can use `curl` to send a request finding the coordinates for a specific element.
-   
+
    ```bash
    curl -X POST "http://localhost:8000/parse" \
         -F "image=@test-screens/test.png"
