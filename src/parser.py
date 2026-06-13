@@ -21,6 +21,7 @@ from detection import RegionDetector
 from labelling import RegionLabeler
 from ollama_labelling import OllamaRegionLabeler
 from ocr import RegionOCR
+from ollama_ocr import OllamaRegionOCR
 
 logger = logging.getLogger("omniparser")
 
@@ -58,12 +59,19 @@ class OmniParser:
                 dtype=models["dtype"],
             )
 
-        self.ocr = RegionOCR(
-            processor=models["processor"],
-            caption_model=models["caption_model"],
-            device=models["device"],
-            dtype=models["dtype"],
-        )
+        ocr_engine = os.environ.get("OCR_ENGINE", "florence").lower()
+        if ocr_engine == "ollama":
+            self.ocr = OllamaRegionOCR(
+                base_url=os.environ.get("OLLAMA_BASE_URL", "http://host.docker.internal:11435"),
+                model_name=os.environ.get("OLLAMA_MODEL", "qwen3-vl:8b")
+            )
+        else:
+            self.ocr = RegionOCR(
+                processor=models["processor"],
+                caption_model=models["caption_model"],
+                device=models["device"],
+                dtype=models["dtype"],
+            )
 
     def parse_screen(self, image: Image.Image) -> list[dict]:
         """Detect UI elements and label each one.

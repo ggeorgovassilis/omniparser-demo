@@ -1,10 +1,12 @@
 # This project
 
-TL;DR: If you hate reading long documentation, like I do, I recommend you ask your AI to explain this project to you.
+TL;DR: Submit a screenshot of an UI to the AI running in Docker, get back a JSON with labelled UI elements.
 
-A Dockerized API service that wraps Microsoft's [OmniParser](https://github.com/microsoft/OmniParser) to detect and locate UI elements on a screen based on text prompts. You submit a screenshot and a text prompt (e.g., "find the submit button"), and the API returns the bounding boxes of the matching UI elements.
+A Dockerized API service that wraps Microsoft's [OmniParser](https://github.com/microsoft/OmniParser) to detect and locate UI elements on a screen based on text prompts. You submit a screenshot and the API returns the bounding boxes of the matching UI elements with a short description.
 
 As a demo of its capabilities, there is an agent which operates a chromium browser (included) only through visual parsing of the page, bypassing the DOM.
+
+By default, YOLO is used for identifying bounding boxes of elements on the page and Florence is used for OCR and labelling, but you can use a vision model running in Ollama instead.
 
 ## Architecture
 
@@ -13,7 +15,7 @@ The project consists of four main components:
 1. **API Layer (FastAPI)**: An HTTP web server exposing a `POST /parse` endpoint. It accepts an image upload and a target prompt.
 2. **OmniParser Engine**: 
    * **Detection**: Utilizes a YOLO model to find all interactable UI regions (areas of interest) on the screen.
-   * **Labelling**: Uses Florence-2 to generate a functional textual label (e.g., "search bar", "submit button") for each detected area.
+   * **Labelling**: Uses Florence-2 or Ollama to generate a functional textual label (e.g., "search bar", "submit button") for each detected area.
    * **OCR**: Extracts raw text from specific bounding box areas or the entire screen using optical character recognition.
 3. **Matcher**: A lightweight fuzzy string matching utility that compares the user's prompt against all generated labels and returns the best matches along with their coordinates.
 4. **Visual Tester Agent**: A VS Code custom agent (configured in `.github/agents/visual_tester.agent.md`) that drives the headless browser strictly through visual recognition — without touching the DOM. It captures screenshots, calls `/parse` to detect UI elements, clicks coordinates, and extracts text via OCR. A PreToolUse guard hook (`.github/hooks/browser-guard.sh`) enforces that the agent can only interact through `browser_cli.py`, preventing DOM-based shortcuts.
@@ -197,7 +199,24 @@ date -u '+%Y-%m-%d %H:%M:%S'
 
 #### Tips for Reliable Tests
 
-* **Always `observe` after navigation or interaction**: The visual state changes after clicks and page loads. Re-run `observe` to get fresh UI element coordinates.
+* **`observe` after navigation or interaction**: The visual state changes after clicks and page loads. If you expect that the page changed, re-run `observe` to get fresh UI element coordinates.
 * **Use center coordinates**: The `observe` command prints center points (`Center: (x, y)`) for each element — use these with `click`.
 * **OCR requires a prior `observe`**: The `ocr` command operates on the last screenshot captured by `observe`, so the page content must be current.
 * **OCR for specific regions**: Narrow OCR to a bounding box region (e.g., `ocr 100,200,300,400`) for more precise text extraction when the full page contains too much noise.
+* **Ollama** refer to `docker-compose.yml` for details
+* **Configuration** refer to `docker-compose.yml` for details
+
+
+### Notes on tests with vision models
+
+Models were tested with `test-screens/test.png` on an Ubuntu laptop with 16 GB RAM and a Radeon GPU with 7 GB VRAM. 4 labelling tasks in parallel.
+
+* gemma3:4b: good labelling, ran in 3m26s
+* qwen3-vl:8b: good labelling, ran in 8m15s
+* qwen3.5:9b-q4_K_M: timeout
+* gemma4:12b-it-Q5_K_M: can't upload image
+* gemma4:e4b: good labelling, ran in 3m22s
+* gemma4:e2b-it-q4_K_M: ok, ran in 1m57s
+* glm-ocr:latest: timeout
+* qwen3-vl:2b-instruct-q4_K_M: ok, ran in 3m13s
+* qwen3-vl:4b-instruct-q4_K_M: good, ran in 3m11s 

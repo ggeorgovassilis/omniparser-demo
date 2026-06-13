@@ -44,28 +44,37 @@ def load_models(weights_dir: str = "weights"):
     yolo_model.to(device)
 
     # ── Florence captioning / OCR model ──
-    logger.info("Loading Florence captioning model...")
-    florence_path = os.path.join(weights_dir, "icon_caption_florence")
-    processor = AutoProcessor.from_pretrained(
-        "microsoft/Florence-2-base",
-        trust_remote_code=True,
-        revision="5ca5edf5bd017b9919c05d08aebef5e4c7ac3bac",
-        code_revision="5ca5edf5bd017b9919c05d08aebef5e4c7ac3bac"
-    )
-    caption_model = AutoModelForCausalLM.from_pretrained(
-        florence_path,
-        trust_remote_code=True,
-        revision="f6c1a25888ffc1d945ee8a1a77ac833c7303d46e",
-        code_revision="f6c1a25888ffc1d945ee8a1a77ac833c7303d46e",
-        torch_dtype=dtype
-    ).to(device)
-
-    # Apply int8 dynamic quantization on CPU for 2-4x faster inference
-    if device == "cpu":
-        logger.info("Applying dynamic int8 quantization for CPU inference...")
-        caption_model = torch.quantization.quantize_dynamic(
-            caption_model, {torch.nn.Linear}, dtype=torch.qint8
+    processor = None
+    caption_model = None
+    
+    labelling_engine = os.environ.get("LABELLING_ENGINE", "florence").lower()
+    ocr_engine = os.environ.get("OCR_ENGINE", "florence").lower()
+    
+    if labelling_engine == "florence" or ocr_engine == "florence":
+        logger.info("Loading Florence captioning model...")
+        florence_path = os.path.join(weights_dir, "icon_caption_florence")
+        processor = AutoProcessor.from_pretrained(
+            "microsoft/Florence-2-base",
+            trust_remote_code=True,
+            revision="5ca5edf5bd017b9919c05d08aebef5e4c7ac3bac",
+            code_revision="5ca5edf5bd017b9919c05d08aebef5e4c7ac3bac"
         )
+        caption_model = AutoModelForCausalLM.from_pretrained(
+            florence_path,
+            trust_remote_code=True,
+            revision="f6c1a25888ffc1d945ee8a1a77ac833c7303d46e",
+            code_revision="f6c1a25888ffc1d945ee8a1a77ac833c7303d46e",
+            torch_dtype=dtype
+        ).to(device)
+
+        # Apply int8 dynamic quantization on CPU for 2-4x faster inference
+        if device == "cpu":
+            logger.info("Applying dynamic int8 quantization for CPU inference...")
+            caption_model = torch.quantization.quantize_dynamic(
+                caption_model, {torch.nn.Linear}, dtype=torch.qint8
+            )
+    else:
+        logger.info("Skipping Florence model loading (Ollama is configured for both engines).")
 
     logger.info("Models loaded successfully.")
     return {
