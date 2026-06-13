@@ -19,6 +19,7 @@ from thefuzz import fuzz
 from models import load_models
 from detection import RegionDetector
 from labelling import RegionLabeler
+from ollama_labelling import OllamaRegionLabeler
 from ocr import RegionOCR
 
 logger = logging.getLogger("omniparser")
@@ -42,12 +43,21 @@ class OmniParser:
             yolo_model=models["yolo_model"],
             device=models["device"],
         )
-        self.labeler = RegionLabeler(
-            processor=models["processor"],
-            caption_model=models["caption_model"],
-            device=models["device"],
-            dtype=models["dtype"],
-        )
+        
+        labelling_engine = os.environ.get("LABELLING_ENGINE", "florence").lower()
+        if labelling_engine == "ollama":
+            self.labeler = OllamaRegionLabeler(
+                base_url=os.environ.get("OLLAMA_BASE_URL", "http://host.docker.internal:11435"),
+                model_name=os.environ.get("OLLAMA_MODEL", "qwen3-vl:8b")
+            )
+        else:
+            self.labeler = RegionLabeler(
+                processor=models["processor"],
+                caption_model=models["caption_model"],
+                device=models["device"],
+                dtype=models["dtype"],
+            )
+
         self.ocr = RegionOCR(
             processor=models["processor"],
             caption_model=models["caption_model"],

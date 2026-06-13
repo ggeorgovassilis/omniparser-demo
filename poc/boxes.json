@@ -2,7 +2,7 @@
   "matches": [
     {
       "id": 0,
-      "label": "A red pen clipart tool.<pad>",
+      "label": "A red pencil eraser tool.<pad>",
       "bbox": [
         14,
         190,
@@ -58,133 +58,63 @@
     },
     {
       "id": 4,
-      "label": "A text editing tool or problem.",
-      "bbox": [
-        40,
-        441,
-        167,
-        461
-      ],
-      "center": [
-        103.5,
-        451.0
-      ]
-    },
-    {
-      "id": 5,
       "label": "A simple simple line or header.",
       "bbox": [
-        178,
+        179,
         18,
         211,
-        50
+        49
       ],
       "center": [
-        194.5,
-        34.0
-      ]
-    },
-    {
-      "id": 6,
-      "label": "A text editing tool or application called \"",
-      "bbox": [
-        217,
-        442,
-        279,
-        463
-      ],
-      "center": [
-        248.0,
-        452.5
-      ]
-    },
-    {
-      "id": 7,
-      "label": "A simple circle or circle shape.<pad>",
-      "bbox": [
-        280,
-        441,
-        305,
-        466
-      ],
-      "center": [
-        292.5,
-        453.5
-      ]
-    },
-    {
-      "id": 8,
-      "label": "A simple logitech mouse icon.",
-      "bbox": [
-        13,
-        439,
-        39,
-        466
-      ],
-      "center": [
-        26.0,
-        452.5
-      ]
-    },
-    {
-      "id": 9,
-      "label": "A simple simple symbol.<pad><pad>",
-      "bbox": [
-        229,
-        16,
-        259,
-        51
-      ],
-      "center": [
-        244.0,
+        195.0,
         33.5
       ]
     },
     {
-      "id": 10,
-      "label": "A text editing tool called \"Twicks",
+      "id": 5,
+      "label": "A text input or output indicator.",
       "bbox": [
-        93,
-        284,
-        250,
-        307
+        40,
+        438,
+        167,
+        459
       ],
       "center": [
-        171.5,
-        295.5
+        103.5,
+        448.5
       ]
     },
     {
-      "id": 11,
-      "label": "A simple symbol or symbol.<pad><pad>",
+      "id": 6,
+      "label": "A red rectangle shape with a white rectangle",
       "bbox": [
+        6,
         12,
-        77,
-        33,
-        98
+        58,
+        53
       ],
       "center": [
-        22.5,
-        87.5
+        32.0,
+        32.5
       ]
     },
     {
-      "id": 12,
-      "label": "A red rectangle with a white rectangle in",
+      "id": 7,
+      "label": "A simple simple setup or setup function.",
       "bbox": [
-        4,
-        0,
-        64,
-        63
+        229,
+        17,
+        259,
+        52
       ],
       "center": [
-        34.0,
-        31.5
+        244.0,
+        34.5
       ]
     },
     {
-      "id": 13,
-      "label": "A black bar or pointer.<pad><pad>",
+      "id": 8,
+      "label": "A black bar or pointer.<pad>",
       "bbox": [
         281,
         23,
@@ -194,6 +124,76 @@
       "center": [
         291.0,
         32.5
+      ]
+    },
+    {
+      "id": 9,
+      "label": "A simple logitech mouse icon.",
+      "bbox": [
+        12,
+        433,
+        39,
+        468
+      ],
+      "center": [
+        25.5,
+        450.5
+      ]
+    },
+    {
+      "id": 10,
+      "label": "A symbol or symbol that is not discern",
+      "bbox": [
+        11,
+        77,
+        33,
+        98
+      ],
+      "center": [
+        22.0,
+        87.5
+      ]
+    },
+    {
+      "id": 11,
+      "label": "A text editing tool called Twick Al",
+      "bbox": [
+        93,
+        284,
+        250,
+        306
+      ],
+      "center": [
+        171.5,
+        295.0
+      ]
+    },
+    {
+      "id": 12,
+      "label": "A blurry image of a single line.",
+      "bbox": [
+        41,
+        79,
+        56,
+        96
+      ],
+      "center": [
+        48.5,
+        87.5
+      ]
+    },
+    {
+      "id": 13,
+      "label": "A text editing tool or application called \"",
+      "bbox": [
+        217,
+        441,
+        302,
+        460
+      ],
+      "center": [
+        259.5,
+        450.5
       ]
     }
   ]

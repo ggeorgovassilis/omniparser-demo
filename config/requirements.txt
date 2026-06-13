@@ -15,3 +15,4 @@ thefuzz==0.22.1
 Levenshtein==0.27.3
 timm==1.0.27
 einops==0.8.2
+requests==2.34.2

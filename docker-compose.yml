@@ -7,6 +7,8 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: python src/main.py
     environment:
       # ── Thread limits for PyTorch/BLAS ──
@@ -27,6 +29,11 @@ services:
       - FLORENCE_BATCH_SIZE=2           # Sub-batch size for captioning (1=no batching; 4-8 for faster)
       - FLORENCE_MAX_TOKENS_CAPTION=10  # Max tokens for element captions
       - FLORENCE_MAX_TOKENS_OCR=300     # Max tokens for OCR (tiled regions need more)
+      # ── Labelling Engine Configuration ──
+      - LABELLING_ENGINE=ollama         # Options: 'florence' (default) or 'ollama'
+      - OLLAMA_BASE_URL=http://host.docker.internal:11435
+      - OLLAMA_MODEL=qwen3-vl:8b
+      - OLLAMA_MAX_WORKERS=4            # Max concurrent HTTP requests to Ollama
       # ── OCR tiling parameters (splits large regions into Florence-native chunks) ──
       - OCR_TILE_SIZE=768              # Tile dimension in pixels (matches Florence input size)
       - OCR_TILE_OVERLAP=64            # Pixel overlap between adjacent tiles to avoid boundary cuts
