@@ -45,7 +45,7 @@ You do not need to install Python or ML libraries on your host machine. Everythi
    Ensure the API is ready by checking the health endpoint:
    ```bash
    curl http://localhost:8000/health
-   # Expected output: {"status": "ok"}
+   # Expected output: {"status": "idle"}
    ```
 
 3. **Test the API**:
@@ -55,14 +55,8 @@ You do not need to install Python or ML libraries on your host machine. Everythi
    * Click "Try it out", upload a screenshot, enter a prompt (like "submit button"), and hit Execute!
 
    **Testing from the command line:**
-   If you have a `test.png` image in your project directory (like a Google homepage screenshot), you can use `curl` to send a request finding the coordinates for a specific element. For example, to find the search box:
-   ```bash
-   curl -X POST "http://localhost:8000/parse" \
-        -F "prompt=search box" \
-        -F "image=@test.png"
-   ```
-
-   If you want to get the unfiltered list of **all** detected UI elements on the screen, just omit the prompt:
+   If you have a `test.png` image in your project directory (like a Google homepage screenshot), you can use `curl` to send a request finding the coordinates for a specific element.
+   
    ```bash
    curl -X POST "http://localhost:8000/parse" \
         -F "image=@test-screens/test.png"

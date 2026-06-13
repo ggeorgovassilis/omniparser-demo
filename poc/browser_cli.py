@@ -22,9 +22,10 @@ def main():
                 
             if cmd == "goto":
                 url = args[0]
-                print(f"Navigating to {url}...")
-                page.goto(url, wait_until="networkidle")
-                print("Done.")
+                print(f"Navigating to {url}...", flush=True)
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_load_state("load", timeout=10000)
+                print(f"Done. Landed on: {page.url}", flush=True)
 
             elif cmd == "observe":
                 screenshot_path = "/app/poc/screenshot.png"
